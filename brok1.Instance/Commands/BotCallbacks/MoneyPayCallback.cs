@@ -28,19 +28,20 @@ namespace brok1.Instance.Commands.BotCallbacks
             string[] splittedCallback = callback.Data.Split(" ");
 
             await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
-            if (user.paydata.payStatus == EPayStatus.WaitingForConfirmation)
-            {
-                user.stage = EStage.moneyAddAnsweredYes;
-                user.paydata.payStatus = EPayStatus.WaitingForPay;
-                string sendText = localization.money_billCreated().ReplaceLocals(new[] { $"{user.paydata.billResponse.Amount.ValueString}" });
-                var ik = new InlineKeyboardMarkup(
-                    new InlineKeyboardButton[][]
-                        {
-                            new InlineKeyboardButton[] { new InlineKeyboardButton("Оплатить счет") {Url=$"{user.paydata.billResponse.PayUrl.AbsoluteUri}"} }, new InlineKeyboardButton[] { new InlineKeyboardButton("Проверить оплату") { CallbackData=$"{callback.From.Id} checkbill {user.paydata.billResponse.BillId}"} }
-                      }
-                    );
-                await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: ik);
-            }
+            await bot.SendTextMessageAsync(callback.Message!.Chat.Id, "В разработке...");
+            //if (user.paydata.payStatus == EPayStatus.WaitingForConfirmation)
+            //{
+            //    user.stage = EStage.moneyAddAnsweredYes;
+            //    user.paydata.payStatus = EPayStatus.WaitingForPay;
+            //    string sendText = localization.money_billCreated().ReplaceLocals(new[] { $"{user.paydata.billResponse.Amount.ValueString}" });
+            //    var ik = new InlineKeyboardMarkup(
+            //        new InlineKeyboardButton[][]
+            //            {
+            //                new InlineKeyboardButton[] { new InlineKeyboardButton("Оплатить счет") {Url=$"{user.paydata.billResponse.PayUrl.AbsoluteUri}"} }, new InlineKeyboardButton[] { new InlineKeyboardButton("Проверить оплату") { CallbackData=$"{callback.From.Id} checkbill {user.paydata.billResponse.BillId}"} }
+            //          }
+            //        );
+            //    await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: ik);
+            //}
         }
     }
 }

@@ -55,7 +55,7 @@
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
-              "version": "[17.5.22, )"
+              "version": "[17.6.40, )"
             },
             "Qiwi.BillPayments": {
               "target": "Package",
@@ -64,6 +64,14 @@
             "Qiwi.BillPayments.Json.Newtonsoft": {
               "target": "Package",
               "version": "[0.1.5, )"
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.6.2, )"
+            },
+            "Quartz.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[3.6.2, )"
             },
             "Telegram.Bot": {
               "target": "Package",

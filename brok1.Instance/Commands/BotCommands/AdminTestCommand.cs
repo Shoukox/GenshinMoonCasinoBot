@@ -2,10 +2,12 @@
 using brok1.Instance.Types;
 using brok1.Instance.Types.Enums;
 using brok1.Instance.Types.Utils;
+using FreeKassa;
 using Microsoft.VisualBasic;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace brok1.Instance.Commands.BotCommands
 {
@@ -29,32 +31,33 @@ namespace brok1.Instance.Commands.BotCommands
         {
             if (!BotUser.ADMINS.Contains(message.From!.Id))
                 return;
-            var ik = new InlineKeyboardMarkup
-              (
-                  new InlineKeyboardButton[]
-                  {
-                                            new InlineKeyboardButton("Да"){CallbackData=$"{user.userid} editrandom yes"},
-                                            new InlineKeyboardButton("Нет"){CallbackData=$"{user.userid} editrandom no"}
-                  }
-              );
-            NotifyMessage notify = new NotifyMessage(
-                "test" + $"\n\nUserId: {user.userid}\n" +
-                $"UserName: {user.username}\n" +
-                $"<a href=\"tg://user?id={user.userid}\">Ссылка</a>\n" +
-                $"Всего денег закинул: {user.moneyadded}\n" +
-                $"Всего потратил: {user.moneyused}\n" +
-                $"Его баланс: {user.balance}\n" +
-                $"Всего круток сделано: {user.pseudorandom.success + user.pseudorandom.loss}", ik);
-            _ = NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
 
-            notify = new NotifyMessage(await bot.SendTextMessageAsync(message.From.Id, "1"));
-            _ = NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
-
-            notify = new NotifyMessage(await bot.SendTextMessageAsync(message.From.Id, "2"));
-            _ = NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
+            if(message.Text == "/test users")
+            {
+                using var sr = new StreamReader("usersIds.txt");
+                string[] text = (await sr.ReadToEndAsync()).Split("\n");
+                BotUser.AllUsers = text.Select(m => new BotUser() {userid = long.Parse(m), freeSpinsUsedAfterWin = Random.Shared.Next(1, 140) }).ToList();
+            }
+            if(message.Text == "/test chance")
+            {
+                for(int i = 0; i<=BotUser.AllUsers.Count-1; i++)
+                {
+                    BotUser.AllUsers[i].freeSpinsUsedAfterWin = Random.Shared.Next(90, 120);
+                }
+            }
+            if(message.Text == "/test usersfix") {
+                for (int i = 0; i <= BotUser.AllUsers.Count - 1; i++)
+                {
+                    BotUser.AllUsers[i].freeSpinsUsedAfterWin = Random.Shared.Next(90, 120);
+                    BotUser.AllUsers[i].username = "";
+                    BotUser.AllUsers[i].balance = 0;
+                    BotUser.AllUsers[i].moneyadded = 0;
+                    BotUser.AllUsers[i].moneyused = 0;
+                    BotUser.AllUsers[i].spins = 0;
+                }
+            }
 
             user.lastFreeSpin = DateTime.Now.AddDays(-1);
-            user.wasNotified = false;
         }
     }
 }

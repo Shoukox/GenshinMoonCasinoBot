@@ -62,9 +62,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
         }
         public static async Task Бесплатный_код_на_Крылья(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
-            using var fs1 = System.IO.File.OpenRead("1.png");
-            var jpg1 = new InputFileStream(fs1, "content.png");
-
+            var inputFileByFileId = new InputFileId(BotFile.AllPhotos.First(m => m.file_name=="1.png").file_id);
 
             string text = "Раз ты тыкнул на эту кнопку, то уже знаешь о <b>новых крыльях</b>, которые можно получить, активировав промокоды.\n" +
                 "За <b>один период</b> нужно активировать только <b>один промокод</b>, для получения крыльев - <b><i>всего 4 промокода.</i></b>\n\n" +
@@ -76,7 +74,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                         new KeyboardButton[] { new KeyboardButton("Назад") },
                     })
             { ResizeKeyboard = true };
-            await bot.SendPhotoAsync(msg.Chat.Id, jpg1, replyToMessageId: msg.MessageId, caption: text, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk);
+            await bot.SendPhotoAsync(msg.Chat.Id, inputFileByFileId, replyToMessageId: msg.MessageId, caption: text, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk);
         }
         public static async Task Получить_код(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -208,8 +206,9 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             {
                 if (!await UsersManager.IsChatMemberAsync(bot, user.userid, sponsor.channelId))
                 {
+
                     sendText =
-                        $"Перед тем как крутить Луну, пожалуйста подпишись на меня и канал спонсора!\n\n" +
+                        $"Перед тем как крутить рулетку, подпишись на наш канал по Геншину" + (Sponsor.AllSponsors.Count == 1 ? ":" : " и на спонсоров:") + "\n\n" +
                         $"{string.Join("\n", Sponsor.AllSponsors.Select((m, index) => $"{index + 1}. {m.channelLink}"))}";
                     await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, disableWebPagePreview: true);
                     return;
@@ -219,13 +218,13 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             if (user.canFreeSpin || user.spins >= 1 || user.spinsList.Count >= 1 /*|| Variables.WHITELIST.Contains(msg.From.Id)*/)
             {
                 //уже крутит?
-                if (user.isSpinning)
-                {
-                    sendText = "Подождите окончания прошлой рулетки";
-                    await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
-                    return;
-                }
-                user.isSpinning = true;
+                //if (user.isSpinning)
+                //{
+                //    sendText = "Подождите окончания прошлой рулетки";
+                //    await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                //    return;
+                //}
+                //user.isSpinning = true;
 
                 //вид крутки
                 bool isSpinsList = false;
@@ -261,11 +260,8 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 }
                 else
                 {
-                    wonMoon = user.pseudorandom.ProcessChance(user.hasPayed);
+                    wonMoon = user.pseudorandom.ProcessChance(user.hasPayed, false);
                 }
-                user.wasNotified = false;
-
-                AnimationGIF[] gifs = (AnimationGIF[])AnimationGIF.AllGIFs.Clone();
                 Message message = null;
                 if (wonMoon)
                 {
@@ -273,8 +269,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                     if (!user.pseudorandom.mustWin)
                     {
                         //3stargif
-                        gifs[0].gifStream.Position = 0;
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileStream(gifs[0].gifStream, "3star.mp4"), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "3star.mp4").file_id), caption: "Крутим рулетку...");
 
                         await Task.Delay(7000);
                         await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
@@ -298,14 +293,12 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                             $"Всего потратил: {user.moneyused}\n" +
                             $"Его баланс: {user.balance}\n" +
                             $"Всего круток сделано: {user.pseudorandom.success + user.pseudorandom.loss}", ik);
-                        _ = NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
+                        await NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
                     }
                     else
                     {
                         //5stargif
-                        gifs[1].gifStream.Position = 0;
-
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileStream(gifs[1].gifStream, "5star.mp4"), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "5star.mp4").file_id), caption: "Крутим рулетку...");
                         await Task.Delay(7000);
                         await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
 
@@ -326,7 +319,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                             $"Всего потратил: {user.moneyused}\n" +
                             $"Его баланс: {user.balance}\n" +
                             $"Всего круток сделано: {user.pseudorandom.success + user.pseudorandom.loss}");
-                        _ = NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
+                        await NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
                         await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
                     }
 
@@ -335,8 +328,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 {
                     if (wonCrystals)
                     {
-                        gifs[2].gifStream.Position = 0;
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileStream(gifs[2].gifStream, "4star.mp4"), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "4star.mp4").file_id), caption: "Крутим рулетку...");
                         await Task.Delay(7000);
                         await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
 
@@ -345,8 +337,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                     }
                     else
                     {
-                        gifs[0].gifStream.Position = 0;
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileStream(gifs[0].gifStream, "3star.mp4"), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "3star.mp4").file_id), caption: "Крутим рулетку...");
                         await Task.Delay(7000);
                         await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
 
@@ -358,7 +349,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                             user.freeSpinsUsedAfterWin = 0;
                         }
                     }
-                    user.isSpinning = false;
+                    //user.isSpinning = false;
                     await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 }
             }
@@ -368,11 +359,11 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 sendText = localization.roulette_limit().ReplaceLocals(new[] { $"{nextSpin.Hours}ч {nextSpin.Minutes}м {nextSpin.Seconds}с" });
                 await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId);
             }
-            user.isSpinning = false;
+            //user.isSpinning = false;
         }
         public static async Task Магазин(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
-            string sendText = "Здесь вы можете приобрести прокруты в рулетке на выпадение луны. \n<b>high chance</b> – это повышенная вероятность выпадения дропа (шанс выше в 3 раза)\nС каждой обычной круткой из магазина шанс на следующий кручение вырастает на 1%, а с круткой на <b>high chance</b> на 2%. Максимальный шанс не выше 50%.\r\n";
+            string sendText = "Здесь вы можете приобрести прокруты в рулетке на выпадение луны. \n<b>high chance</b> – это повышенная вероятность выпадения дропа (шанс выше в 3 раза)\nС каждой обычной круткой из магазина шанс на следующий кручение вырастает на 1%, а с круткой на <b>high chance</b> на 2%. Максимальный шанс не выше 50%.\n";
             await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: Keyboards.ShopButtons, replyToMessageId: msg.MessageId);
         }
         public static async Task Лотерея(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)

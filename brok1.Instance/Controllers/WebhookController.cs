@@ -18,7 +18,7 @@ namespace brok1.Instance.Controllers
               [FromServices] UpdateHandler handleUpdateService,
               CancellationToken cancellationToken)
         {
-            await handleUpdateService.HandleUpdateAsync(update, cancellationToken);
+            await handleUpdateService.HandleUpdateAsync(update, cancellationToken).ConfigureAwait(false);
         }
     }
 }

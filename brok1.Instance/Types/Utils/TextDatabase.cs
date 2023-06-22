@@ -1,9 +1,9 @@
 ﻿namespace brok1.Instance.Types.Utils;
 public static class TextDatabase
 {
-    public static void SaveData()
+    public static void SaveData(bool newUsersFile = false)
     {
-        using (StreamWriter sw = new StreamWriter($"users.txt"))
+        using (StreamWriter sw = new StreamWriter($"users" + (newUsersFile ? DateTime.Now.ToString("dd:MM") : "") + ".txt"))
         {
             sw.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(BotUser.AllUsers));
         }
@@ -95,12 +95,12 @@ public static class TextDatabase
 
     public static void SaveTimer()
     {
-        var saveDataTimer = new System.Timers.Timer(10 * 60 * 1000);
+        var saveDataTimer = new System.Timers.Timer(1*24*3600*1000);
         saveDataTimer.Elapsed += (s, e) =>
         {
             try
             {
-                TextDatabase.SaveData();
+                TextDatabase.SaveData(true);
                 Console.WriteLine("saved");
             }
             catch (Exception ex)

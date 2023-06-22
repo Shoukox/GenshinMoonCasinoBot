@@ -1,5 +1,6 @@
 ﻿using brok1.Instance.Localization;
 using brok1.Instance.Types;
+using Microsoft.VisualBasic;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 
@@ -24,16 +25,20 @@ namespace brok1.Instance.Services
         {
             _logger.LogInformation("Notify Timer started its work");
             string sendText = localization.notify_Text();
+
+            DateTime date1() => DateTime.Now;
+            DateTime date2() => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1, 0, 0, 0);
+            TimeSpan delay() => date2() - date1();
+
+            await Task.Delay(delay());
             while (!stoppingToken.IsCancellationRequested)
             {
                 for (int i = 0; i <= BotUser.AllUsers.Count - 1; i++)
                 {
                     try
                     {
-                        if ((BotUser.AllUsers[i].nextFreeSpin - DateTime.Now).TotalSeconds <= 60 && !BotUser.AllUsers[i].wasNotified && BotUser.AllUsers[i].notifyEnabled)
+                        if (DateTime.Now >= BotUser.AllUsers[i].nextFreeSpin && BotUser.AllUsers[i].notifyEnabled)
                         {
-                            BotUser.AllUsers[i].wasNotified = true;
-
                             await _botClient.SendTextMessageAsync(BotUser.AllUsers[i].userid, sendText);
                             //await _botClient.SendTextMessageAsync(BotUser.ADMINS[0], sendText);
                             await Task.Delay(1000);
@@ -59,10 +64,9 @@ namespace brok1.Instance.Services
                             //blocked by user
                             BotUser.AllUsers[i].stoppedBot = true;
                         }
-                        await Task.Delay(1000);
                     }
                 }
-                await Task.Delay(TimeSpan.FromSeconds(30));
+                await Task.Delay(delay());
             }
         }
     }

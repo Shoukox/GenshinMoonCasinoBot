@@ -67,7 +67,7 @@ public class UsersRabattCodes
                 return (i + 4);
             }
         }
-        return 0;
+        return 8;
     }
     public static int GetIndexNumber() => GetPeriodNumber() - 4;
 }

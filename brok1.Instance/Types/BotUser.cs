@@ -30,13 +30,13 @@ public class BotUser
         }
     }
     public Pseudorandom pseudorandom { get; set; }
-    public bool wasNotified = false;
     public DateTime lastFreeSpin { get; set; }
     public DateTime nextFreeSpin
     {
         get
         {
-            return lastFreeSpin.AddHours(24 - lastFreeSpin.Hour).AddMinutes(60 - lastFreeSpin.Minute).AddSeconds(60-lastFreeSpin.Second);
+            var date = lastFreeSpin.AddDays(1);
+            return new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
         }
     }
     public EStage stage { get; set; }
@@ -61,23 +61,16 @@ public class BotUser
         {
             _spins = value;
         }
-
     }
     public int moons { get; set; }
     public int crystals { get; set; }
     public bool PayProcessStarted { get; set; } //paycontroller //other.userspay
-    public bool isSpinning { get; set; }
+    //public bool isSpinning { get; set; }
     public bool stoppedBot { get; set; }
     public bool wasRecentlyAdded = false;
     public bool isWishing = false;
     public bool isFeedbacking = false;
-    public bool canFreeSpin
-    {
-        get
-        {
-            return DateTime.Now >= nextFreeSpin;
-        }
-    }
+    public bool canFreeSpin => DateTime.Now >= nextFreeSpin;
     public int referalUsersCount { get; set; }
     public DateTime lastInvitedReferal { get; set; }
     public BotUser()

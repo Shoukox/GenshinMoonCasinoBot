@@ -34,7 +34,7 @@ namespace brok1.Instance.Commands.BotCommands
                     "💫 Рулетка" => ReplyCommandsHandler.Рулетка(bot, message, user, localization),
                     "📖 Обратная связь" => ReplyCommandsHandler.Обратная_связь(bot, message, user, localization),
                     "Ваши пожелания" => ReplyCommandsHandler.Ваши_пожелания(bot, message, user, localization),
-                    "🦋 Бесплатный код на Крылья!" => ReplyCommandsHandler.Бесплатный_код_на_Крылья(bot, message, user, localization),
+                    //"🦋 Бесплатный код на Крылья!" => ReplyCommandsHandler.Бесплатный_код_на_Крылья(bot, message, user, localization),
                     "Получить код" => ReplyCommandsHandler.Получить_код(bot, message, user, localization),
                     "Общая информация" => ReplyCommandsHandler.Общая_информация(bot, message, user, localization),
                     "Отзывы" => ReplyCommandsHandler.Отзывы(bot, message, user, localization),

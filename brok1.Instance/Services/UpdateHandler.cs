@@ -36,7 +36,7 @@ public class UpdateHandler
         _logger.LogError($"{errorMessage}");
     }
 
-    public Task HandleUpdateAsync(Update update, CancellationToken cancellationToken)
+    public async Task HandleUpdateAsync(Update update, CancellationToken cancellationToken)
     {
         try
         {
@@ -47,11 +47,11 @@ public class UpdateHandler
                 { CallbackQuery: { } callbackQuery } => BotOnCallbackQueryReceived(callbackQuery, cancellationToken),
                 _ => UnknownUpdateHandlerAsync(update, cancellationToken),
             };
-            return handler;
+            await handler.ConfigureAwait(true);
         }
         catch (Exception exception)
         {
-            return HandleErrorAsync(exception, cancellationToken);
+            await HandleErrorAsync(exception, cancellationToken);
         }
     }
 

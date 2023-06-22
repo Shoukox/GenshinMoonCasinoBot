@@ -9,7 +9,7 @@ namespace brok1.Instance.Types
                     new KeyboardButton[] { new KeyboardButton("☀️ Профиль"),  new KeyboardButton("💫 Рулетка") },
                     new KeyboardButton[] { new KeyboardButton("💰 Магазин"), new KeyboardButton("🎟️ Лотерея") },
                     new KeyboardButton[] { new KeyboardButton("📚 Информация"), new KeyboardButton("📖 Обратная связь") },
-                    new KeyboardButton[] { new KeyboardButton("🦋 Бесплатный код на Крылья!") }
+                    //new KeyboardButton[] { new KeyboardButton("🦋 Бесплатный код на Крылья!") }
                }
        )
         { ResizeKeyboard = true };

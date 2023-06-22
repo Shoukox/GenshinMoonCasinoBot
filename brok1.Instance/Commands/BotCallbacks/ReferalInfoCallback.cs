@@ -24,17 +24,8 @@ namespace brok1.Instance.Commands.BotCallbacks
         }
         public async Task Execute()
         {
-            string[] splittedCallback = callback.Data.Split(" ");
-
-            string answer = splittedCallback[2];
-            await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
-            if (answer == "yes")
-            {
-                user.stage = EStage.moneyAddAnsweredYes;
-                user.paydata.payStatus = EPayStatus.WaitingForAmount;
-                string sendText = "💳 На какую сумму вы хотите пополнить баланс?";
-                await bot.SendTextMessageAsync(user.userid, sendText);
-            }
+            string sendText = localization.button_referal_info();
+            await bot.SendTextMessageAsync(callback.From.Id, sendText, replyToMessageId: callback.Message!.MessageId);
         }
     }
 }

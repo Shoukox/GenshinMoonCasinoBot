@@ -1,4 +1,7 @@
-﻿namespace brok1.Instance.Types.Utils
+﻿using Telegram.Bot.Types;
+using File = System.IO.File;
+
+namespace brok1.Instance.Types.Utils
 {
     public static class Settings
     {
@@ -6,6 +9,7 @@
         {
             InitializeQiwi(bot);
             LoadData();
+            StartSaveTimer();
         }
         private static void InitializeQiwi(BotConfiguration bot)
         {
@@ -14,6 +18,10 @@
         private static void LoadData()
         {
             TextDatabase.LoadData();
+        }
+        private static void StartSaveTimer()
+        {
+            TextDatabase.SaveTimer();
         }
     }
 }

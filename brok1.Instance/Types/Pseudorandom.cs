@@ -51,6 +51,9 @@
         private int _GetRandom(int a, int b) => random.Next(a, b + 1);
         public bool ProcessChance(bool hasPayed, bool crystals = false, double chance = -1)
         {
+            if (chance == -1)
+                chance = this.chance;
+
             if (isTwisted)
             {
                 isTwisted = false;
@@ -77,7 +80,7 @@
             if (!crystals)
                 hasWon = num <= chance * 1000;
             else
-                hasWon = num >= 727 && num <= 1000;
+                hasWon = num >= 727 && num <= 800;
 
             if (hasWon)
             {
