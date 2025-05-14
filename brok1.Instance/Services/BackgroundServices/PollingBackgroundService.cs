@@ -18,6 +18,8 @@ public class PollingBackgroundService(
 
     private async Task EnqueueAllUpdates(CancellationToken stoppingToken)
     {
+        await botClient.DeleteWebhook();
+
         int? offset = null;
         while (!stoppingToken.IsCancellationRequested)
         {

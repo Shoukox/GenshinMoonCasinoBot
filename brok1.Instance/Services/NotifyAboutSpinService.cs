@@ -1,5 +1,6 @@
 ﻿using brok1.Instance.Localization;
 using brok1.Instance.Types;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
@@ -45,6 +46,10 @@ namespace brok1.Instance.Services
 
                             _logger.LogInformation($"Sent notifyMessage to user.id: {BotUser.AllUsers[i].userid}");
                         }
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return;
                     }
                     catch (ApiRequestException e)
                     {
