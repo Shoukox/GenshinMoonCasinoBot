@@ -39,8 +39,8 @@ namespace brok1.Instance.Services
                     {
                         if (DateTime.Now >= BotUser.AllUsers[i].nextFreeSpin && BotUser.AllUsers[i].notifyEnabled)
                         {
-                            await _botClient.SendTextMessageAsync(BotUser.AllUsers[i].userid, sendText);
-                            //await _botClient.SendTextMessageAsync(BotUser.ADMINS[0], sendText);
+                            await _botClient.SendMessage(BotUser.AllUsers[i].userid, sendText);
+                            //await _botClient.SendMessage(BotUser.ADMINS[0], sendText);
                             await Task.Delay(1000);
 
                             _logger.LogInformation($"Sent notifyMessage to user.id: {BotUser.AllUsers[i].userid}");

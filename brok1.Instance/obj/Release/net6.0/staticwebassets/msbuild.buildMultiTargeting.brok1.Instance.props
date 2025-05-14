@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\brok1.Instance.props" />
-</Project>

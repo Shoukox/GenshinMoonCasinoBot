@@ -28,7 +28,7 @@ namespace brok1.Instance.Commands.BotCommands
                 return;
 
             TextDatabase.SaveData();
-            await bot.SendTextMessageAsync(message.Chat.Id, "saved");
+            await bot.SendMessage(message.Chat.Id, "saved");
         }
     }
 }

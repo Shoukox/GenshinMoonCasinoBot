@@ -1,2 +1,5 @@
 *.txt
 appsettings*.json
+.vs
+*/obj
+*/bin

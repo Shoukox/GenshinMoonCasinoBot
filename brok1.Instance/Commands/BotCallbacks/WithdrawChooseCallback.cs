@@ -40,19 +40,19 @@ namespace brok1.Instance.Commands.BotCallbacks
             {
                 user.stage = EStage.Other;
                 sendText = localization.error_noMoons();
-                await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, replyToMessageId: callback.Message.MessageId);
+                await bot.SendMessage(callback.Message.Chat.Id, sendText, replyParameters: callback.Message.MessageId);
                 return;
             }
             if (user.crystals == 0 && user.withdrawing == EWithdrawing.Crystals)
             {
                 user.stage = EStage.Other;
                 sendText = localization.error_noCrystals();
-                await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, replyToMessageId: callback.Message.MessageId);
+                await bot.SendMessage(callback.Message.Chat.Id, sendText, replyParameters: callback.Message.MessageId);
                 return;
             }
             sendText = localization.button_moneyOut();
             user.stage = EStage.waitingForQIWINumber;
-            await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, replyToMessageId: callback.Message.MessageId);
+            await bot.SendMessage(callback.Message.Chat.Id, sendText, replyParameters: callback.Message.MessageId);
         }
     }
 }

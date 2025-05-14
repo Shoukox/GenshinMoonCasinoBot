@@ -29,20 +29,19 @@ namespace brok1.Instance.Commands.BotCommands
             long id = -1;
             if (!long.TryParse(message.Text!.Split(" ").Last(), out id))
             {
-                await bot.SendTextMessageAsync(message.Chat.Id, "Это не id");
+                await bot.SendMessage(message.Chat.Id, "Это не id");
                 return;
             }
 
-            BotUser? userToFind = BotUser.AllUsers.FirstOrDefault(m => m.userid == id);
-
+            BotUser userToFind = BotUser.AllUsers.FirstOrDefault(m => m.userid == id);
             if (userToFind == default)
             {
-                await bot.SendTextMessageAsync(message.Chat.Id, "Такого нету");
+                await bot.SendMessage(message.Chat.Id, "Такого нету");
                 return;
             }
 
             string sendText = Newtonsoft.Json.JsonConvert.SerializeObject(userToFind);
-            await bot.SendTextMessageAsync(message.Chat.Id, sendText);
+            await bot.SendMessage(message.Chat.Id, sendText);
         }
     }
 }

@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "Cy7Kx9dHKro7tSqj2LT0wW/Y0yBvkC3kxpX1PYkNsL4=",
+  "Hash": "1wsXUBxA8/bA4Z4Ni7AkDtKDEUG1AjJNAXVNqcpi9HY=",
   "Source": "brok1.Instance",
   "BasePath": "_content/brok1.Instance",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

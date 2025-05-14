@@ -6,11 +6,12 @@ using brok1.Instance.Types;
 using brok1.Instance.Types.Utils;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
+using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 
 namespace brok1.Instance.Services;
 
-public class UpdateHandler
+public class UpdateHandler : IUpdateHandler
 {
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<UpdateHandler> _logger;
@@ -21,7 +22,7 @@ public class UpdateHandler
         _logger = logger;
     }
 
-    public async Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
+    public async Task HandleErrorAsync(ITelegramBotClient bot, Exception exception, HandleErrorSource handleErrorSource, CancellationToken cancellationToken)
     {
         string errorMessage = exception.ToString();
         if (exception is ApiRequestException apiRequestException)
@@ -30,13 +31,13 @@ public class UpdateHandler
             if (apiRequestException.ErrorCode == 429)
             {
                 //flood: retry after n
-                await Task.Delay(apiRequestException.Parameters!.RetryAfter!.Value * 1000);
+                await Task.Delay(3000);
             }
         }
         _logger.LogError($"{errorMessage}");
     }
 
-    public async Task HandleUpdateAsync(Update update, CancellationToken cancellationToken)
+    public async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
     {
         try
         {
@@ -47,11 +48,11 @@ public class UpdateHandler
                 { CallbackQuery: { } callbackQuery } => BotOnCallbackQueryReceived(callbackQuery, cancellationToken),
                 _ => UnknownUpdateHandlerAsync(update, cancellationToken),
             };
-            await handler.ConfigureAwait(true);
+            await handler;
         }
         catch (Exception exception)
         {
-            await HandleErrorAsync(exception, cancellationToken);
+            await HandleErrorAsync(bot, exception, HandleErrorSource.HandleUpdateError, cancellationToken);
         }
     }
 
@@ -113,7 +114,7 @@ public class UpdateHandler
             "checkFeedbacks" => new CheckFeedbacksCallback(_botClient, callbackQuery, cancellationToken, localization, user),
             _ => new DummyCallback(_botClient, callbackQuery, cancellationToken, localization, user)
         };
-        _ = _botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
+        _ = _botClient.AnswerCallbackQuery(callbackQuery.Id);
 
         return action.Execute();
     }

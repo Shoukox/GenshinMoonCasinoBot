@@ -31,7 +31,7 @@ namespace brok1.Instance.Commands.BotCallbacks
             if (user.balance < amount)
             {
                 string sendText = "Недостаточно средств на балансе";
-                await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await bot.SendMessage(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
             user.balance -= amount;
@@ -44,7 +44,7 @@ namespace brok1.Instance.Commands.BotCallbacks
                 native_count = count
             });
             //Variables.db.UpdateOrInsertUsersTable(user, false);
-            await bot.SendTextMessageAsync(callback.Message.Chat.Id, $"Вы успешно купили за <b>{amount}</b> рублей следующее количество круток: <b>{count}</b>", parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(callback.Message.Chat.Id, $"Вы успешно купили за <b>{amount}</b> рублей следующее количество круток: <b>{count}</b>", parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

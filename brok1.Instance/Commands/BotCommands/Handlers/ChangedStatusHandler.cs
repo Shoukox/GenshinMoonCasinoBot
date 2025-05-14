@@ -19,7 +19,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             notifyMessage = new NotifyMessage(msg);
             _ = NotifyManager.NotifyAsync(bot, notifyMessage, Types.Enums.ENotify.Admins);
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, "Спасибо что оставили пожелание по улучшению бота!");
+            await bot.SendMessage(msg.Chat.Id, "Спасибо что оставили пожелание по улучшению бота!");
             user.isWishing = false;
         }
         public static async Task isFeedbacking(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
@@ -31,7 +31,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             notify = new NotifyMessage(msg);
             _ = NotifyManager.NotifyAsync(bot, notify, Types.Enums.ENotify.Admins);
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, "Спасибо, что оставили отзыв!");
+            await bot.SendMessage(msg.Chat.Id, "Спасибо, что оставили отзыв!");
         }
         public static async Task WaitingForStringToEditSponsors(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -48,7 +48,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             user.adminPanel.stage = EAdminPanelStage.Other;
 
             string sendText = "Успешно изменено";
-            await bot.SendTextMessageAsync(user.userid, sendText);
+            await bot.SendMessage(user.userid, sendText);
         }
         public static async Task WaitingForButtonText(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -86,8 +86,8 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                        );
 
             var text = $"\n\nОтправляем?";
-            await bot.CopyMessageAsync(msg.Chat.Id, user.adminMessageToSend.Chat.Id, user.adminMessageToSend.MessageId, replyMarkup: user.adminIkToSend);
-            await bot.SendTextMessageAsync(user.userid, text, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.CopyMessage(msg.Chat.Id, user.adminMessageToSend.Chat.Id, user.adminMessageToSend.MessageId, replyMarkup: user.adminIkToSend);
+            await bot.SendMessage(user.userid, text, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task WaitingForStringToNotifyAllUsers(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -120,8 +120,8 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 )
             { ResizeKeyboard = true };
             string text = "\n\nХотите добавить кнопки?";
-            await bot.CopyMessageAsync(msg.Chat.Id, msg.Chat.Id, msg.MessageId);
-            await bot.SendTextMessageAsync(user.userid, text, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.CopyMessage(msg.Chat.Id, msg.Chat.Id, msg.MessageId);
+            await bot.SendMessage(user.userid, text, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task WaitingForNum(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -135,7 +135,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             if (!condition)
             {
                 sendText = "Вы ввели не число. Введите число без лишних надписей. Только цифры";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText);
+                await bot.SendMessage(msg.Chat.Id, sendText);
                 return;
             }
             if (condition && "+-".Contains(msg.Text[0]))
@@ -151,7 +151,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             user.adminPanel.stage = EAdminPanelStage.WaitingForUserNameOrUserId;
 
             sendText = "Отправьте UserName или UserId, которому будет проведена операция.";
-            await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
         }
         public static async Task WaitingForUserNameOrUserId(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -168,7 +168,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             if (!user.adminPanel.isUserName && !long.TryParse(msg.Text, out id))
             {
                 sendText = "Вы ввели ни UserName, ни UserId. Повторите ввод.";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText);
+                await bot.SendMessage(msg.Chat.Id, sendText);
                 return;
             }
             BotUser user1;
@@ -185,7 +185,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             if (user1 == default)
             {
                 sendText = "Нет такого юзера с таким айди\\юзернеймом. Повторите ввод, либо /restart";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText);
+                await bot.SendMessage(msg.Chat.Id, sendText);
                 return;
             }
 
@@ -271,7 +271,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             {
                 rk = Keyboards.startButtons;
             }
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: rk);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: rk);
         }
         public static async Task WaitingForAmount(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -280,7 +280,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             {
                 string sendText = "Вы ввели не число. Введите число оплаты без надписи \"р.\" \"рублей\" и т.д.\n" +
                     "Например: 100";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText);
+                await bot.SendMessage(msg.Chat.Id, sendText);
                 return;
             }
             else
@@ -289,7 +289,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 if (amount < 10)
                 {
                     sendText = "Слишком маленькая сумма";
-                    await bot.SendTextMessageAsync(msg.Chat.Id, sendText);
+                    await bot.SendMessage(msg.Chat.Id, sendText);
                     return;
                 }
                 user.paydata.payAmount = amount;
@@ -316,7 +316,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                     );
                 sendText = localization.money_billInfo().ReplaceLocals(new[] { $"{user.paydata.payAmount}", $"{user.userid}" });
 
-                await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: ik);
+                await bot.SendMessage(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: ik);
 
                 //Variables.db.UpdateOrInsertUsersTable(user, false);
             }
@@ -330,7 +330,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                    });
             string sendText = $"Ваш UID: {msg.Text}";
             user.stage = EStage.waitingQiwiNumberConfirmation;
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
     }
 }

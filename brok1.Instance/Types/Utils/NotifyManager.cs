@@ -11,7 +11,8 @@ namespace brok1.Instance.Types.Utils
             List<BotUser> usersToNotify = eNotify switch
             {
                 ENotify.Users => BotUser.AllUsers,
-                ENotify.Admins => BotUser.AllUsers.Where((user) => BotUser.ADMINS.Contains(user.userid)).ToList()
+                ENotify.Admins => BotUser.AllUsers.Where((user) => BotUser.ADMINS.Contains(user.userid)).ToList(),
+                _ => throw new NotSupportedException()
             };
             for (int i = 0; i <= usersToNotify.Count - 1; i++)
             {
@@ -20,13 +21,13 @@ namespace brok1.Instance.Types.Utils
                 try
                 {
                     if (notifyMessage.isForwarding)
-                        await bot.ForwardMessageAsync(curUser.userid, notifyMessage.message.Chat.Id, notifyMessage.message.MessageId);
+                        await bot.ForwardMessage(curUser.userid, notifyMessage.message.Chat.Id, notifyMessage.message.MessageId);
                     else
                     {
                         if (notifyMessage.isMessage)
-                            await bot.CopyMessageAsync(curUser.userid, notifyMessage.message.Chat.Id, notifyMessage.message.MessageId, replyMarkup: notifyMessage.ik, parseMode: ParseMode.Html);
+                            await bot.CopyMessage(curUser.userid, notifyMessage.message.Chat.Id, notifyMessage.message.MessageId, replyMarkup: notifyMessage.ik, parseMode: ParseMode.Html);
                         else
-                            await bot.SendTextMessageAsync(curUser.userid, notifyMessage.text, parseMode: ParseMode.Html, replyMarkup: notifyMessage.ik);
+                            await bot.SendMessage(curUser.userid, notifyMessage.text, parseMode: ParseMode.Html, replyMarkup: notifyMessage.ik);
 
                     }
                 }

@@ -52,7 +52,7 @@ namespace brok1.Instance.Types.Utils
             return Task.WhenAll(new Task[]
                 {
                     NotifyManager.NotifyAsync(botClient, notify, Enums.ENotify.Admins),
-                    botClient.SendTextMessageAsync(user.userid, sendText)
+                    botClient.SendMessage(user.userid, sendText)
                 });
         }
     }

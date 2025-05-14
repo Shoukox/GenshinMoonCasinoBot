@@ -28,8 +28,8 @@ namespace brok1.Instance.Commands.BotCallbacks
             string sendText = "Посмотреть отзывы участников вы сможете <a href=\"https://t.me/+53z0tg2GH4JlYmMy\">здесь</a>";
             var rk = new InlineKeyboardMarkup(new InlineKeyboardButton("Посмотреть отзывы") { Url = "https://t.me/+53z0tg2GH4JlYmMy" });
 
-            await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText);
-            await bot.AnswerCallbackQueryAsync(callback.Id);
+            await bot.SendMessage(callback.Message.Chat.Id, sendText);
+            await bot.AnswerCallbackQuery(callback.Id);
         }
     }
 }

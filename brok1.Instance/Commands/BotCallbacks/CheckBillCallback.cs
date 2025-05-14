@@ -32,13 +32,13 @@ namespace brok1.Instance.Commands.BotCallbacks
                 var bill = await QiwiManager.CheckBillAsync(billId);
                 if (bill.Status.ValueEnum == BillStatusEnum.Paid)
                 {
-                    await bot.SendTextMessageAsync(user.userid, "Счет оплачен", parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                    await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
+                    await bot.SendMessage(user.userid, "Счет оплачен", parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    await bot.DeleteMessage(callback.Message.Chat.Id, callback.Message.MessageId);
                     await QiwiManager.SuccessfulPayAsync(bot, user);
                 }
                 else
                 {
-                    await bot.SendTextMessageAsync(user.userid, "Счет не оплачен", parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    await bot.SendMessage(user.userid, "Счет не оплачен", parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 }
             }
             catch (Exception e)

@@ -32,14 +32,14 @@ namespace brok1.Instance.Commands.BotCallbacks
                 if (user.paydata.billResponse == null)
                 {
                     sendText = localization.error_restartBot();
-                    await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    await bot.SendMessage(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     return;
                 }
 
                 await QiwiManager.CancelBillAsync(user.paydata.billResponse.BillId);
                 user.paydata = new PayData();
                 sendText = localization.money_billCanceled();
-                await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await bot.SendMessage(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             user.stage = EStage.moneyAddProcessing;
             user.paydata.payStatus = EPayStatus.Started;
@@ -49,7 +49,7 @@ namespace brok1.Instance.Commands.BotCallbacks
                         {
                                         new InlineKeyboardButton("Продолжить") { CallbackData=$"{user.userid} moneyAdd yes"},
                         });
-            await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, replyToMessageId: callback.Message.MessageId, replyMarkup: ik);
+            await bot.SendMessage(callback.Message.Chat.Id, sendText, replyParameters: callback.Message.MessageId, replyMarkup: ik);
         }
     }
 }

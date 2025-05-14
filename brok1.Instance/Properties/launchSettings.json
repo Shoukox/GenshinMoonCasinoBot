@@ -5,10 +5,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "dotnetRunMessages": true,
-      //"applicationUrl": "http://0.0.0.0.0:8443;http://0.0.0.0.0:443;http://0.0.0.0.0:80;http://0.0.0.0.0:88",
-      "applicationUrl": "http://0.0.0.0.0:5000",
-      "hotReloadEnabled": false
+      "applicationUrl": "https://localhost:51532;http://localhost:51533"
     }
   }
 }

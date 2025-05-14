@@ -23,15 +23,12 @@
         }
         private bool wasLost;
         private bool isTwisted;
-        private int listSize = 50;
-        private List<int[]> lastRndGrenzen;
         private Random random = new Random();
 
         public Pseudorandom(double chance)
         {
             native_chance = chance;
             this.chance = chance;
-            lastRndGrenzen = new List<int[]>();
             log = new List<int>();
             success = 0;
             loss = 0;

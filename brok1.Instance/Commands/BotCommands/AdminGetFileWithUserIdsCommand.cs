@@ -31,7 +31,7 @@ namespace brok1.Instance.Commands.BotCommands
             }
             using var stream1 = System.IO.File.OpenRead($"usersIds_{name}.txt");
             InputFile inputOnlineFile = new InputFileStream(stream1, "usersIds.txt");
-            await bot.SendDocumentAsync(message.Chat.Id, inputOnlineFile);
+            await bot.SendDocument(message.Chat.Id, inputOnlineFile);
         }
     }
 }

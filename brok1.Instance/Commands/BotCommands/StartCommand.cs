@@ -38,7 +38,7 @@ namespace brok1.Instance.Commands.BotCommands
             }
             string sendText = localization.command_start();
             string[] splittedMessage = message.Text.Split(" ");
-            await bot.SendTextMessageAsync(message.Chat.Id, sendText, replyToMessageId: message.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(message.Chat.Id, sendText, replyParameters: message.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
             if (splittedMessage.Length == 2)
             {
@@ -62,7 +62,7 @@ namespace brok1.Instance.Commands.BotCommands
                 sendText =
                     "Благодаря вашей реферальной ссылке в бота добавили нового пользователя!\n" +
                     $"Всего перешедших: {user1.referalUsersCount}";
-                await bot.SendTextMessageAsync(user1.userid, sendText);
+                await bot.SendMessage(user1.userid, sendText);
 
                 if (user1.referalUsersCount / 6f - user1.referalUsersCount / 6 != 0
                     || user1.stoppedBot)
@@ -72,7 +72,7 @@ namespace brok1.Instance.Commands.BotCommands
                 user1.lastInvitedReferal = DateTime.UtcNow;
 
                 sendText = $"Ваша реферальная ссылка привела в бота уже {user1.referalUsersCount} человек. Вы получили бонусные 10 рублей на баланс.";
-                await bot.SendTextMessageAsync(user1.userid, sendText);
+                await bot.SendMessage(user1.userid, sendText);
             }
         }
     }

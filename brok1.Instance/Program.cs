@@ -1,5 +1,6 @@
 using brok1.Instance.Localization;
 using brok1.Instance.Services;
+using brok1.Instance.Services.Data;
 using brok1.Instance.Types;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
@@ -22,14 +23,15 @@ namespace brok1.Instance
             builder.Services.AddHttpClient("telegram_bot_client")
                             .AddTypedClient<ITelegramBotClient>((httpClient, sp) =>
                             {
-                                BotConfiguration? botConfig = sp.GetService<BotConfiguration>();
+                                BotConfiguration botConfig = sp.GetService<BotConfiguration>();
                                 TelegramBotClientOptions options = new(botConfig!.BotToken);
                                 return new TelegramBotClient(options, httpClient);
                             });
             // Dummy business-logic service
+            builder.Services.AddSingleton<UpdateQueueService>();
             builder.Services.AddScoped<UpdateHandler>();
-
-            builder.Services.AddHostedService<ConfigureWebhook>();
+            builder.Services.AddHostedService<PollingBackgroundService>();
+            builder.Services.AddHostedService<UpdateHandlerBackgroundService>();
             builder.Services.AddHostedService<NotifyAboutSpinService>();
 
             builder.Services

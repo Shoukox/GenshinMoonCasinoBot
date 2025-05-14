@@ -25,7 +25,7 @@ namespace brok1.Instance.Commands.BotCallbacks
         public async Task Execute()
         {
             string sendText = localization.button_referal_info();
-            await bot.SendTextMessageAsync(callback.From.Id, sendText, replyToMessageId: callback.Message!.MessageId);
+            await bot.SendMessage(callback.From.Id, sendText, replyParameters: callback.Message!.MessageId);
         }
     }
 }
