@@ -31,14 +31,14 @@ namespace brok1.Instance.Commands.BotCallbacks
             string[] splittedCallback = callback.Data.Split(" ");
             string answer = splittedCallback[2];
 
-            await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
+            await bot.DeleteMessage(callback.Message.Chat.Id, callback.Message.MessageId);
             if (answer == "yes")
             {
                 NotifyMessage notify = new NotifyMessage(user.adminMessageToSend, false);
                 notify.ik = user.adminIkToSend;
 
                 _ = NotifyManager.NotifyAsync(bot, notify, Types.Enums.ENotify.Users);
-                await bot.SendTextMessageAsync(user.userid, $"Начинается рассылка сообщения всем юзерам. Рассылка займет примерно {BotUser.AllUsers.Count} секунд.", replyMarkup: null);
+                await bot.SendMessage(user.userid, $"Начинается рассылка сообщения всем юзерам. Рассылка займет примерно {BotUser.AllUsers.Count} секунд.", replyMarkup: null);
                 
                 user.adminPanel.stage = EAdminPanelStage.Other;
                 user.adminMessageToSend = null;

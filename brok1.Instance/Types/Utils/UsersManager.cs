@@ -79,7 +79,7 @@ namespace brok1.Instance.Types.Utils
         {
             try
             {
-                var member = await bot.GetChatMemberAsync(chatId, userId);
+                var member = await bot.GetChatMember(chatId, userId);
                 return (member.Status == Telegram.Bot.Types.Enums.ChatMemberStatus.Administrator) ||
                             (member.Status == Telegram.Bot.Types.Enums.ChatMemberStatus.Creator) ||
                             (member.Status == Telegram.Bot.Types.Enums.ChatMemberStatus.Member);

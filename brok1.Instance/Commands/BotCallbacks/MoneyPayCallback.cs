@@ -27,8 +27,8 @@ namespace brok1.Instance.Commands.BotCallbacks
         {
             string[] splittedCallback = callback.Data.Split(" ");
 
-            await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
-            await bot.SendTextMessageAsync(callback.Message!.Chat.Id, "В разработке...");
+            await bot.DeleteMessage(callback.Message.Chat.Id, callback.Message.MessageId);
+            await bot.SendMessage(callback.Message!.Chat.Id, "В разработке...");
             //if (user.paydata.payStatus == EPayStatus.WaitingForConfirmation)
             //{
             //    user.stage = EStage.moneyAddAnsweredYes;
@@ -40,7 +40,7 @@ namespace brok1.Instance.Commands.BotCallbacks
             //                new InlineKeyboardButton[] { new InlineKeyboardButton("Оплатить счет") {Url=$"{user.paydata.billResponse.PayUrl.AbsoluteUri}"} }, new InlineKeyboardButton[] { new InlineKeyboardButton("Проверить оплату") { CallbackData=$"{callback.From.Id} checkbill {user.paydata.billResponse.BillId}"} }
             //          }
             //        );
-            //    await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: ik);
+            //    await bot.SendMessage(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: ik);
             //}
         }
     }

@@ -28,7 +28,7 @@ public class ConfigureWebhook : IHostedService
         var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
         Settings.LoadAllSettings(_botConfig);
 
-        BotInfo.bot = await botClient.GetMeAsync();
+        BotInfo.bot = await botClient.GetMe();
         BotInfo.botClient = botClient;
 
         await InitializeAllGIFsAndPhotos(botClient);
@@ -36,7 +36,7 @@ public class ConfigureWebhook : IHostedService
         var webhookAddress = $"{_botConfig.HostAddress}/{_botConfig.Route}";
         _logger.LogInformation("Setting webhook: {WebhookAddress}", webhookAddress);
 
-        await botClient.SetWebhookAsync(webhookAddress, cancellationToken: cancellationToken, dropPendingUpdates: true);
+        await botClient.SetWebhook(webhookAddress, cancellationToken: cancellationToken, dropPendingUpdates: true);
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
@@ -46,7 +46,7 @@ public class ConfigureWebhook : IHostedService
 
         // Remove webhook on app shutdown
         _logger.LogInformation("Removing webhook");
-        await botClient.DeleteWebhookAsync(cancellationToken: cancellationToken);
+        await botClient.DeleteWebhook(cancellationToken: cancellationToken);
     }
 
     private async Task InitializeAllGIFsAndPhotos(ITelegramBotClient botClient)
@@ -65,9 +65,10 @@ public class ConfigureWebhook : IHostedService
         {
             gif.file_id = gif.file_name switch
             {
-                "5star.mp4" => (await botClient.SendAnimationAsync(BotUser.ADMINS[0], gif_5StarFile)).Animation!.FileId,
-                "4star.mp4" => (await botClient.SendAnimationAsync(BotUser.ADMINS[0], gif_4StarFile)).Animation!.FileId,
-                "3star.mp4" => (await botClient.SendAnimationAsync(BotUser.ADMINS[0], gif_3StarFile)).Animation!.FileId
+                "5star.mp4" => (await botClient.SendAnimation(BotUser.ADMINS[0], gif_5StarFile)).Animation!.FileId,
+                "4star.mp4" => (await botClient.SendAnimation(BotUser.ADMINS[0], gif_4StarFile)).Animation!.FileId,
+                "3star.mp4" => (await botClient.SendAnimation(BotUser.ADMINS[0], gif_3StarFile)).Animation!.FileId,
+                _ => throw new NotSupportedException()
             };
         }
 
@@ -75,7 +76,8 @@ public class ConfigureWebhook : IHostedService
         {
             photo.file_id = photo.file_name switch
             {
-                "1.png" => (await botClient.SendPhotoAsync(BotUser.ADMINS[0], photoFile)).Photo![0].FileId,
+                "1.png" => (await botClient.SendPhoto(BotUser.ADMINS[0], photoFile)).Photo![0].FileId,
+                _ => throw new NotSupportedException()
             };
         }
 

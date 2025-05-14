@@ -32,7 +32,7 @@ namespace brok1.Instance.Commands.BotCommands
             var user1 = BotUser.AllUsers.First(m => m.username.ToLower() == splittedText[1].ToLower());
             UsersManager.SetFreeSpinsUsedAfterWin(user1, (int)(n * 10 - 10));
 
-            await bot.SendTextMessageAsync(message.Chat.Id, $"Изменено, его шанс {UsersManager.GetCurrentUsersVisualChance(user1)[1]}%");
+            await bot.SendMessage(message.Chat.Id, $"Изменено, его шанс {UsersManager.GetCurrentUsersVisualChance(user1)[1]}%");
         }
     }
 }

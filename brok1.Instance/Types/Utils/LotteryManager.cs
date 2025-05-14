@@ -31,7 +31,7 @@ namespace brok1.Instance.Types.Utils
 
                 foreach (var part in Lottery.LotteryNow.lotteryParticipants.Select(m => m.user.userid).ToHashSet())
                 {
-                    sendMessageTasks.Add(bot.SendTextMessageAsync(part, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html));
+                    sendMessageTasks.Add(bot.SendMessage(part, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html));
                 }
             }
             //~~~~~~~~~~~~~~~~~~~~~~~~ creating new lottery

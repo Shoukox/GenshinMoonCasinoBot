@@ -33,7 +33,7 @@ namespace brok1.Instance.Commands.BotCallbacks
                     new("Кристаллы") { CallbackData = $"{callback.From.Id} withdrawChoose crystals" },
             });
             sendText = "Что вы хотите вывести?";
-            await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, replyToMessageId: callback.Message.MessageId, replyMarkup: ik);
+            await bot.SendMessage(callback.Message.Chat.Id, sendText, replyParameters: callback.Message.MessageId, replyMarkup: ik);
         }
     }
 }

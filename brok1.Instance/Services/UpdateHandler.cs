@@ -30,7 +30,7 @@ public class UpdateHandler
             if (apiRequestException.ErrorCode == 429)
             {
                 //flood: retry after n
-                await Task.Delay(apiRequestException.Parameters!.RetryAfter!.Value * 1000);
+                await Task.Delay(3000);
             }
         }
         _logger.LogError($"{errorMessage}");
@@ -47,7 +47,7 @@ public class UpdateHandler
                 { CallbackQuery: { } callbackQuery } => BotOnCallbackQueryReceived(callbackQuery, cancellationToken),
                 _ => UnknownUpdateHandlerAsync(update, cancellationToken),
             };
-            await handler.ConfigureAwait(true);
+            await handler;
         }
         catch (Exception exception)
         {
@@ -113,7 +113,7 @@ public class UpdateHandler
             "checkFeedbacks" => new CheckFeedbacksCallback(_botClient, callbackQuery, cancellationToken, localization, user),
             _ => new DummyCallback(_botClient, callbackQuery, cancellationToken, localization, user)
         };
-        _ = _botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
+        _ = _botClient.AnswerCallbackQuery(callbackQuery.Id);
 
         return action.Execute();
     }

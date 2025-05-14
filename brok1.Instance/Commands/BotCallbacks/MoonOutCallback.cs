@@ -58,13 +58,13 @@ namespace brok1.Instance.Commands.BotCallbacks
                 NotifyMessage notify = new NotifyMessage($"Запрос на вывод {helpText}.\nUserId: {user.userid}\nUserName: {user.username}\nСообщения с кошельком:\n\n{callback.Message.Text}");
 
                 _ = NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
-                await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await bot.SendMessage(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             else
             {
                 user.stage = EStage.waitingForQIWINumber;
                 string sendText = "Повторите ввод. Если вы считаете, что это ошибка, перезапустите бота - /start";
-                await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await bot.SendMessage(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             //Variables.db.UpdateOrInsertUsersTable(user, false);
         }

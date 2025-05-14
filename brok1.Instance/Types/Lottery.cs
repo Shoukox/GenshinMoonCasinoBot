@@ -5,11 +5,11 @@ namespace brok1.Instance.Types;
 public class Lottery
 {
     public static List<Lottery> AllLotteries = new List<Lottery>();
-    public static Lottery? LotteryNow => AllLotteries.LastOrDefault();
+    public static Lottery LotteryNow => AllLotteries.LastOrDefault();
     public static object lotteryLocker = new object();
 
     public long lotteryId { get; set; }
-    public List<Types.LotteryParticipant> lotteryParticipants { get; set; }
+    public List<LotteryParticipant> lotteryParticipants { get; set; }
     public Types.LotteryParticipant lotteryWinner { get; set; }
     public bool isWorking = false;
 
@@ -41,7 +41,7 @@ public class Lottery
         set
         {
             _lotteryEnd = value;
-            LotteryManager.Check(this);
+            _ = LotteryManager.Check(this);
         }
     }
 

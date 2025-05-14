@@ -26,7 +26,7 @@ namespace brok1.Instance.Commands.BotCommands
             if (!BotUser.ADMINS.Contains(message.From.Id))
                 return;
 
-            await bot.SendTextMessageAsync(message.Chat.Id, $"Обработано с момента запуска бота: {BotMessage.processedMessages}");
+            await bot.SendMessage(message.Chat.Id, $"Обработано с момента запуска бота: {BotMessage.processedMessages}");
         }
     }
 }

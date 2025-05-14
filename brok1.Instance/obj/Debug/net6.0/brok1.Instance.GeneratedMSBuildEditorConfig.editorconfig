@@ -9,25 +9,29 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = brok1.Instance
 build_property.RootNamespace = brok1.Instance
-build_property.ProjectDir = C:\Users\Shoukko\source\repos\brok1_Remaster\brok1.Instance\
+build_property.ProjectDir = C:\Users\shach\Desktop\GenshinMoonCasinoBot\brok1.Instance\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Shoukko\source\repos\brok1_Remaster\brok1.Instance
+build_property.MSBuildProjectDirectory = C:\Users\shach\Desktop\GenshinMoonCasinoBot\brok1.Instance
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 6.0
+build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Shoukko/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.LegacyThreadSwitchingMembers.txt]
+[C:/Users/shach/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.LegacyThreadSwitchingMembers.txt]
 build_metadata.AdditionalFiles.TargetPath = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Shoukko/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.MainThreadAssertingMethods.txt]
+[C:/Users/shach/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.MainThreadAssertingMethods.txt]
 build_metadata.AdditionalFiles.TargetPath = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Shoukko/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.MainThreadSwitchingMethods.txt]
+[C:/Users/shach/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.MainThreadSwitchingMethods.txt]
 build_metadata.AdditionalFiles.TargetPath = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Shoukko/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.MembersRequiringMainThread.txt]
+[C:/Users/shach/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.6.40/build/AdditionalFiles/vs-threading.MembersRequiringMainThread.txt]
 build_metadata.AdditionalFiles.TargetPath = 
 build_metadata.AdditionalFiles.CssScope = 

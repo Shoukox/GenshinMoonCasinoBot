@@ -2,7 +2,6 @@
 using brok1.Instance.Types;
 using brok1.Instance.Types.Enums;
 using brok1.Instance.Types.Utils;
-using FreeKassa;
 using Microsoft.VisualBasic;
 using Telegram.Bot;
 using Telegram.Bot.Types;

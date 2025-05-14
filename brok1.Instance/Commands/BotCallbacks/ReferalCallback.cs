@@ -27,7 +27,7 @@ namespace brok1.Instance.Commands.BotCallbacks
         {
             string sendText = localization.button_referal().ReplaceLocals(new string[] {$"{BotInfo.bot.Username}", $"{user.userid}", $"{user.referalUsersCount}"});
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Доп.информация 📬") { CallbackData = $"{callback.Message.Chat.Id} referalInfo" });
-            await bot.SendTextMessageAsync(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableWebPagePreview: true, replyMarkup: ik);
+            await bot.SendMessage(callback.Message.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, linkPreviewOptions: true, replyMarkup: ik);
         }
     }
 }

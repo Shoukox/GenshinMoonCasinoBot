@@ -1,8 +1,5 @@
 using brok1.Instance.Services;
-using brok1.Instance.Types;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Threading;
-using System.Runtime.CompilerServices;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -13,12 +10,13 @@ namespace brok1.Instance.Controllers
     public class WebhookController : ControllerBase
     {
         [HttpPost]
-        public async Task PostAsync(
+        public Task PostAsync(
               [FromBody] Update update,
               [FromServices] UpdateHandler handleUpdateService,
               CancellationToken cancellationToken)
         {
-            await handleUpdateService.HandleUpdateAsync(update, cancellationToken).ConfigureAwait(false);
+            _ = Task.Run(() => handleUpdateService.HandleUpdateAsync(update, cancellationToken));
+            return Task.CompletedTask;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace brok1.Instance.Commands.BotCallbacks
             string answer = splittedCallback[2];
             long id = long.Parse(splittedCallback[0]);
 
-            await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
+            await bot.DeleteMessage(callback.Message.Chat.Id, callback.Message.MessageId);
             if (answer == "yes")
             {
                 var user1 = BotUser.AllUsers.FirstOrDefault(m => m.userid == id);

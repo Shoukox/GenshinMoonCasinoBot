@@ -67,6 +67,7 @@ namespace brok1.Instance.Commands.BotCommands
                     "10 круток high chance: 399р (выгоднее на 20%)" => ReplyCommandsHandler.крутка10_399(bot, message, user, localization),
                     "Добавить кнопки" => ReplyCommandsHandler.Добавить_кнопки(bot, message, user, localization),
                     "Без кнопок" => ReplyCommandsHandler.Без_кнопок(bot, message, user, localization),
+                    _ => Task.CompletedTask
                 };
                 return func;
             }
@@ -93,7 +94,7 @@ namespace brok1.Instance.Commands.BotCommands
                 else
                 {
                     string sendText = localization.error_commandNotFound();
-                    return bot.SendTextMessageAsync(message.Chat.Id, sendText, parseMode: ParseMode.Html, replyToMessageId: message.MessageId);
+                    return bot.SendMessage(message.Chat.Id, sendText, parseMode: ParseMode.Html, replyParameters: message.MessageId);
                 }
             }
         }

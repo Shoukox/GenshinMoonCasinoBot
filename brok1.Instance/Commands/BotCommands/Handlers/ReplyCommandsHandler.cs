@@ -17,7 +17,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                         new InlineKeyboardButton[]{new InlineKeyboardButton("Реферальная система"){ CallbackData = $"{msg.From.Id} referal"}},
                         new InlineKeyboardButton[]{new InlineKeyboardButton("Пополнить") { CallbackData = $"{msg.From.Id} replenish"}, new InlineKeyboardButton("Вывести"){ CallbackData = $"{msg.From.Id} withdraw"} },
                     });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, replyMarkup: ik, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, replyMarkup: ik, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Рулетка(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -31,7 +31,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 )
             { ResizeKeyboard = true };
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk);
         }
         public static async Task Обратная_связь(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -51,14 +51,14 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             })
             { ResizeKeyboard = true };
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Ваши_пожелания(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             string sendText = "<b>Напишите идеи по улучшению бота.</b>\n\n" +
                   "<i>Мы обязательно рассмотрим ваше сообщение. Если идея нас зацепит, вам будет начислено 10р в качестве благодарности.</i>";
             user.isWishing = true;
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Бесплатный_код_на_Крылья(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -74,7 +74,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                         new KeyboardButton[] { new KeyboardButton("Назад") },
                     })
             { ResizeKeyboard = true };
-            await bot.SendPhotoAsync(msg.Chat.Id, inputFileByFileId, replyToMessageId: msg.MessageId, caption: text, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk);
+            await bot.SendPhoto(msg.Chat.Id, inputFileByFileId, replyParameters: msg.MessageId, caption: text, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk);
         }
         public static async Task Получить_код(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -84,7 +84,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             {
                 string sendText = "Подпишись на наш канал, ведь мы раздаем коды совершенно бесплатно!\n" +
                     "1. https://t.me/+IN-oHJ2_ZVwzYjRi";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, disableWebPagePreview: true);
+                await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, linkPreviewOptions: true);
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             {
                 string lastCode = user.rabatt_codes.codes[UsersRabattCodes.GetIndexNumber()];
                 string sendText = $"Не торопись, ты уже взял свой код!\n<i>Дождись следующего периода, о нем мы сообщим на нашем канале @hey_Vadimchik</i>\n\n<b>Твой код в этом периоде: {lastCode}</b>";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
                 return;
             }
 
@@ -100,7 +100,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             {
                 string sendText = "Ой, все коды разобрали, но ничего страшного, скоро мы закинем еще!\n\n" +
                     "Оповестим на нашем канале: \nhttps://t.me/+IN-oHJ2_ZVwzYjRi";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
                 return;
             }
 
@@ -108,7 +108,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             string code = user.rabatt_codes.codes[index];
             string text = $"Твой код: {code}";
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, text);
+            await bot.SendMessage(msg.Chat.Id, text);
         }
         public static async Task Общая_информация(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -116,7 +116,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             if (periodNum == 0)
             {
                 string sendText = "Дождитесь следующего обновления!";
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText);
+                await bot.SendMessage(msg.Chat.Id, sendText);
                 return;
             }
 
@@ -142,7 +142,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 $"Разыграли: <i>{UsersRabattCodes.AllRabattCodes.Where(s => s.code.EndsWith($"_used{periodNum}")).Count()}</i>\n" +
                 $"Осталось: <i>{UsersRabattCodes.AllRabattCodes.Where(s => !s.code.Contains($"_used")).Count()}</i>";
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, text, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, text, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Отзывы(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -161,26 +161,26 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             })
             { ResizeKeyboard = true };
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Отзывы_участников(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             string sendText = "Посмотреть <b>отзывы участников</b> вы сможете <a href=\"https://t.me/+53z0tg2GH4JlYmMy\">здесь</a>:";
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Посмотреть отзывы") { Url = "https://t.me/+53z0tg2GH4JlYmMy" });
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, replyMarkup: ik, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableWebPagePreview: true);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, replyMarkup: ik, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, linkPreviewOptions: true);
 
         }
         public static async Task Написать_отзыв(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             string sendText = "<b>Оставьте свои отзыв.</b>\nНе забудьте прикрепить скриншоты с бота и игры.\n";
             user.isFeedbacking = true;
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Информация(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             string sendText = localization.button_info();
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableWebPagePreview: true);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, linkPreviewOptions: true);
         }
         public static async Task Назад(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -196,7 +196,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             }
 
             string sendText = localization.command_start();
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, replyMarkup: rk, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
         public static async Task Крутить_луну(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -210,7 +210,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                     sendText =
                         $"Перед тем как крутить рулетку, подпишись на наш канал по Геншину" + (Sponsor.AllSponsors.Count == 1 ? ":" : " и на спонсоров:") + "\n\n" +
                         $"{string.Join("\n", Sponsor.AllSponsors.Select((m, index) => $"{index + 1}. {m.channelLink}"))}";
-                    await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, disableWebPagePreview: true);
+                    await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, linkPreviewOptions: true);
                     return;
                 }
             }
@@ -221,7 +221,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 //if (user.isSpinning)
                 //{
                 //    sendText = "Подождите окончания прошлой рулетки";
-                //    await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                //    await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
                 //    return;
                 //}
                 //user.isSpinning = true;
@@ -269,13 +269,13 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                     if (!user.pseudorandom.mustWin)
                     {
                         //3stargif
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "3star.mp4").file_id), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimation(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "3star.mp4").file_id), caption: "Крутим рулетку...");
 
                         await Task.Delay(7000);
-                        await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
+                        await bot.DeleteMessage(message.Chat.Id, message.MessageId);
 
                         sendText = localization.roulette_lose(); //lose
-                        await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId);
+                        await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId);
 
                         ik = new InlineKeyboardMarkup
                             (
@@ -298,9 +298,9 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                     else
                     {
                         //5stargif
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "5star.mp4").file_id), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimation(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "5star.mp4").file_id), caption: "Крутим рулетку...");
                         await Task.Delay(7000);
-                        await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
+                        await bot.DeleteMessage(message.Chat.Id, message.MessageId);
 
                         if (!isPayedSpin)
                         {
@@ -320,7 +320,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                             $"Его баланс: {user.balance}\n" +
                             $"Всего круток сделано: {user.pseudorandom.success + user.pseudorandom.loss}");
                         await NotifyManager.NotifyAsync(bot, notify, ENotify.Admins);
-                        await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                        await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
                     }
 
                 }
@@ -328,18 +328,18 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 {
                     if (wonCrystals)
                     {
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "4star.mp4").file_id), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimation(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "4star.mp4").file_id), caption: "Крутим рулетку...");
                         await Task.Delay(7000);
-                        await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
+                        await bot.DeleteMessage(message.Chat.Id, message.MessageId);
 
                         sendText = "<b>Поздравляю, ты выиграл Кристалы (💎)!</b>\n\n<i>Ты можешь вывести их в своем профиле (/start -> Профиль)</i>\n";
                         user.crystals += 60;
                     }
                     else
                     {
-                        message = await bot.SendAnimationAsync(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "3star.mp4").file_id), caption: "Крутим рулетку...");
+                        message = await bot.SendAnimation(msg.Chat.Id, new InputFileId(BotFile.AllGIFs.First(m => m.file_name == "3star.mp4").file_id), caption: "Крутим рулетку...");
                         await Task.Delay(7000);
-                        await bot.DeleteMessageAsync(message.Chat.Id, message.MessageId);
+                        await bot.DeleteMessage(message.Chat.Id, message.MessageId);
 
                         sendText = localization.roulette_lose();
 
@@ -350,21 +350,21 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                         }
                     }
                     //user.isSpinning = false;
-                    await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 }
             }
             else
             {
                 var nextSpin = user.nextFreeSpin - DateTime.Now;
                 sendText = localization.roulette_limit().ReplaceLocals(new[] { $"{nextSpin.Hours}ч {nextSpin.Minutes}м {nextSpin.Seconds}с" });
-                await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId);
+                await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId);
             }
             //user.isSpinning = false;
         }
         public static async Task Магазин(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             string sendText = "Здесь вы можете приобрести прокруты в рулетке на выпадение луны. \n<b>high chance</b> – это повышенная вероятность выпадения дропа (шанс выше в 3 раза)\nС каждой обычной круткой из магазина шанс на следующий кручение вырастает на 1%, а с круткой на <b>high chance</b> на 2%. Максимальный шанс не выше 50%.\n";
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: Keyboards.ShopButtons, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: Keyboards.ShopButtons, replyParameters: msg.MessageId);
         }
         public static async Task Лотерея(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -395,7 +395,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 )
             { ResizeKeyboard = true };
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: rk, replyParameters: msg.MessageId);
         }
         public static async Task Рассылка(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -404,7 +404,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
 
             user.adminPanel.stage = EAdminPanelStage.WaitingForStringToNotifyAllUsers;
             string sendText = "Отправьте сообщение, которое надо переслать.";
-            await bot.SendTextMessageAsync(user.userid, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, sendText, replyParameters: msg.MessageId);
         }
         public static async Task Спонсоры(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -417,7 +417,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 "\n" +
                 "ID канала можно взять <a href=\"https://t.me/userinfobot\">тут</a>.";
 
-            await bot.SendTextMessageAsync(user.userid, sendText, replyToMessageId: msg.MessageId, disableWebPagePreview: true);
+            await bot.SendMessage(user.userid, sendText, replyParameters: msg.MessageId, linkPreviewOptions: true);
         }
         public static async Task Уведомления(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -440,19 +440,19 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             string sendText =
                 "Включить уведомления?\n\n" +
                 $"У вас: {status}";
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId, replyMarkup: rk);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId, replyMarkup: rk);
         }
         public static async Task Включить_уведомления(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             user.notifyEnabled = true;
             string sendText = $"Готово, уведомления включены.";
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId);
         }
         public static async Task Выключить_уведомления(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             user.notifyEnabled = false;
             string sendText = $"Готово, уведомления выключены.";
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, replyParameters: msg.MessageId);
         }
         public static async Task Получить_билетик(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -462,13 +462,13 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             if (Lottery.LotteryNow == null)
             {
                 sendText = "Лотерея еще не начата. Обратитесь к администратору бота, если лотерея не начинается долгое время";
-                await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                await bot.SendMessage(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
                 return;
             }
             if (user.balance < TicketCost)
             {
                 sendText = "У вас недостаточно баланса для покупки билета";
-                await bot.SendTextMessageAsync(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+                await bot.SendMessage(user.userid, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
                 return;
             }
 
@@ -488,7 +488,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             Lottery.LotteryNow.lotteryParticipants.Add(part);
             sendText = "<b>Вы успешно купили билет!</b>\n\n" +
                 $"Ваши билеты: {string.Join(", ", Lottery.LotteryNow.lotteryParticipants.Where(m => m.user.userid == user.userid).Select(m => m.ticketId))}";
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
         }
         public static async Task Информация_о_розыгрыше(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -498,7 +498,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                $"Закончится через: {datetimeOffset.Days}д {datetimeOffset.Hours}ч {datetimeOffset.Minutes}м {datetimeOffset.Seconds}с\n" +
                $"Распроданных билетов: {Lottery.LotteryNow.lotteryParticipantsCount}\n" +
                $"Ваши билеты: {string.Join(", ", Lottery.LotteryNow.lotteryParticipants.Where(m => m.user.userid == user.userid).Select(m => m.ticketId))}";
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
         }
         public static async Task Админ_панель(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -508,7 +508,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             user.adminPanel = new AdminPanel();
             ReplyKeyboardMarkup rk = Keyboards.adminPanelButtons;
             user.adminPanel.stage = EAdminPanelStage.ChoosingAdminFunc;
-            await bot.SendTextMessageAsync(user.userid, "Админ панель", replyMarkup: rk, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, "Админ панель", replyMarkup: rk, replyParameters: msg.MessageId);
         }
         public static async Task Статистика(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -530,7 +530,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                 $"\n├ За неделю: {newUsersCount[1]}" +
                 $"\n└ За день: {newUsersCount[0]}";
 
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
         }
         public static async Task Подкрутка(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -554,7 +554,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                             new KeyboardButton("Назад"),
                         }
             });
-            await bot.SendTextMessageAsync(user.userid, "Админ панель", replyMarkup: rk, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, "Админ панель", replyMarkup: rk, replyParameters: msg.MessageId);
         }
         public static async Task Шанс_следующей_крутки(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -566,7 +566,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             string sendText =
                 "Введите число, на которое вы хотите заменить значение свойства пользователя, в зависимости от выбранной функции.\n\n" +
                 "Если вы хотите добавить или отнять от его текущего числа, то укажите +5 или -5 соответственно.";
-            await bot.SendTextMessageAsync(user.userid, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, sendText, replyParameters: msg.MessageId);
         }
         public static async Task Изменить_баланс(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -578,7 +578,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             string sendText =
                  "Введите число, на которое вы хотите заменить значение свойства пользователя, в зависимости от выбранной функции.\n\n" +
                  "Если вы хотите добавить или отнять от его текущего числа, то укажите +5 или -5 соответственно.";
-            await bot.SendTextMessageAsync(user.userid, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, sendText, replyParameters: msg.MessageId);
         }
         public static async Task Изменить_количество_лун(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -590,7 +590,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             string sendText =
                   "Введите число, на которое вы хотите заменить значение свойства пользователя, в зависимости от выбранной функции.\n\n" +
                   "Если вы хотите добавить или отнять от его текущего числа, то укажите +5 или -5 соответственно.";
-            await bot.SendTextMessageAsync(user.userid, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, sendText, replyParameters: msg.MessageId);
         }
         public static async Task Изменить_количество_круток(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -602,7 +602,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             string sendText =
                 "Введите число, на которое вы хотите заменить значение свойства пользователя, в зависимости от выбранной функции.\n\n" +
                 "Если вы хотите добавить или отнять от его текущего числа, то укажите +5 или -5 соответственно.";
-            await bot.SendTextMessageAsync(user.userid, sendText, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(user.userid, sendText, replyParameters: msg.MessageId);
         }
         public static async Task крутка1_19(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -610,7 +610,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             int amount = 19;
             string sendText = localization.shop_item().ReplaceLocals(new[] { $"{itemName}", $"{user.balance}", $"{amount}" });
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Купить") { CallbackData = $"{user.userid} shop 1_19" });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task крутка5_79(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -618,7 +618,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             var amount = 79;
             var sendText = localization.shop_item().ReplaceLocals(new[] { $"{itemName}", $"{user.balance}", $"{amount}" });
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Купить") { CallbackData = $"{user.userid} shop 5_79" });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task крутка10_149(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -626,7 +626,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             var amount = 149;
             var sendText = localization.shop_item().ReplaceLocals(new[] { $"{itemName}", $"{user.balance}", $"{amount}" });
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Купить") { CallbackData = $"{user.userid} shop 10_149" });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task крутка1_49(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -634,7 +634,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             var amount = 49;
             var sendText = localization.shop_item().ReplaceLocals(new[] { $"{itemName}", $"{user.balance}", $"{amount}" });
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Купить") { CallbackData = $"{user.userid} shop 1_49" });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task крутка5_209(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -642,7 +642,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             var amount = 209;
             var sendText = localization.shop_item().ReplaceLocals(new[] { $"{itemName}", $"{user.balance}", $"{amount}" });
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Купить") { CallbackData = $"{user.userid} shop 5_209" });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task крутка10_399(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -650,13 +650,13 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
             var amount = 399;
             var sendText = localization.shop_item().ReplaceLocals(new[] { $"{itemName}", $"{user.balance}", $"{amount}" });
             var ik = new InlineKeyboardMarkup(new InlineKeyboardButton("Купить") { CallbackData = $"{user.userid} shop 10_399" });
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId, replyMarkup: ik);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId, replyMarkup: ik);
         }
         public static async Task Добавить_кнопки(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
             var sendText = "Впишите все кнопки в формате:\n\nКнопка 1 - Ссылка 1 | Кнопка 2 - Ссылка 2\nЧтобы добавить кнопку на новый ряд, используйте ||";
             user.adminPanel.stage = EAdminPanelStage.WaitingForButtonText;
-            await bot.SendTextMessageAsync(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyToMessageId: msg.MessageId);
+            await bot.SendMessage(msg.Chat.Id, sendText, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyParameters: msg.MessageId);
         }
         public static async Task Без_кнопок(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
@@ -670,8 +670,8 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
                                   );
 
             string text = "\n\nОтправляем?";
-            await bot.CopyMessageAsync(msg.Chat.Id, user.adminMessageToSend.Chat.Id, user.adminMessageToSend.MessageId);
-            await bot.SendTextMessageAsync(user.userid, text, replyMarkup: ik, replyToMessageId: msg.MessageId);
+            await bot.CopyMessage(msg.Chat.Id, user.adminMessageToSend.Chat.Id, user.adminMessageToSend.MessageId);
+            await bot.SendMessage(user.userid, text, replyMarkup: ik, replyParameters: msg.MessageId);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace brok1.Instance
             builder.Services.AddHttpClient("telegram_bot_client")
                             .AddTypedClient<ITelegramBotClient>((httpClient, sp) =>
                             {
-                                BotConfiguration? botConfig = sp.GetService<BotConfiguration>();
+                                BotConfiguration botConfig = sp.GetService<BotConfiguration>();
                                 TelegramBotClientOptions options = new(botConfig!.BotToken);
                                 return new TelegramBotClient(options, httpClient);
                             });

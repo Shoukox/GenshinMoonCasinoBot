@@ -27,13 +27,13 @@ namespace brok1.Instance.Commands.BotCallbacks
             string[] splittedCallback = callback.Data.Split(" ");
 
             string answer = splittedCallback[2];
-            await bot.DeleteMessageAsync(callback.Message.Chat.Id, callback.Message.MessageId);
+            await bot.DeleteMessage(callback.Message.Chat.Id, callback.Message.MessageId);
             if (answer == "yes")
             {
                 user.stage = EStage.moneyAddAnsweredYes;
                 user.paydata.payStatus = EPayStatus.WaitingForAmount;
                 string sendText = "💳 На какую сумму вы хотите пополнить баланс?";
-                await bot.SendTextMessageAsync(user.userid, sendText);
+                await bot.SendMessage(user.userid, sendText);
             }
         }
     }
