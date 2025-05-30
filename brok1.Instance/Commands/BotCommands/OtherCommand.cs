@@ -75,11 +75,11 @@ namespace brok1.Instance.Commands.BotCommands
             {
                 if (user.isWishing)
                     return ChangedStatusHandler.isWishing(bot, message, user, localization);
-                else if (user.isFeedbacking) 
+                else if (user.isFeedbacking)
                     return ChangedStatusHandler.isFeedbacking(bot, message, user, localization);
-                else if (user.adminPanel.stage == EAdminPanelStage.WaitingForStringToEditSponsors) 
+                else if (user.adminPanel.stage == EAdminPanelStage.WaitingForStringToEditSponsors)
                     return ChangedStatusHandler.WaitingForStringToEditSponsors(bot, message, user, localization);
-                else if (user.adminPanel.stage == EAdminPanelStage.WaitingForButtonText) 
+                else if (user.adminPanel.stage == EAdminPanelStage.WaitingForButtonText)
                     return ChangedStatusHandler.WaitingForButtonText(bot, message, user, localization);
                 else if (user.adminPanel.stage == EAdminPanelStage.WaitingForStringToNotifyAllUsers)
                     return ChangedStatusHandler.WaitingForStringToNotifyAllUsers(bot, message, user, localization);

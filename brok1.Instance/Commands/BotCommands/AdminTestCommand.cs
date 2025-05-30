@@ -1,12 +1,7 @@
 ﻿using brok1.Instance.Localization;
 using brok1.Instance.Types;
-using brok1.Instance.Types.Enums;
-using brok1.Instance.Types.Utils;
-using Microsoft.VisualBasic;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace brok1.Instance.Commands.BotCommands
 {
@@ -31,20 +26,21 @@ namespace brok1.Instance.Commands.BotCommands
             if (!BotUser.ADMINS.Contains(message.From!.Id))
                 return;
 
-            if(message.Text == "/test users")
+            if (message.Text == "/test users")
             {
                 using var sr = new StreamReader("usersIds.txt");
                 string[] text = (await sr.ReadToEndAsync()).Split("\n");
-                BotUser.AllUsers = text.Select(m => new BotUser() {userid = long.Parse(m), freeSpinsUsedAfterWin = Random.Shared.Next(1, 140) }).ToList();
+                BotUser.AllUsers = text.Select(m => new BotUser() { userid = long.Parse(m), freeSpinsUsedAfterWin = Random.Shared.Next(1, 140) }).ToList();
             }
-            if(message.Text == "/test chance")
+            if (message.Text == "/test chance")
             {
-                for(int i = 0; i<=BotUser.AllUsers.Count-1; i++)
+                for (int i = 0; i <= BotUser.AllUsers.Count - 1; i++)
                 {
                     BotUser.AllUsers[i].freeSpinsUsedAfterWin = Random.Shared.Next(90, 120);
                 }
             }
-            if(message.Text == "/test usersfix") {
+            if (message.Text == "/test usersfix")
+            {
                 for (int i = 0; i <= BotUser.AllUsers.Count - 1; i++)
                 {
                     BotUser.AllUsers[i].freeSpinsUsedAfterWin = Random.Shared.Next(90, 120);

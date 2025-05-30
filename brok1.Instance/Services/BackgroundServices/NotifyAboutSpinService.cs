@@ -1,11 +1,9 @@
 ﻿using brok1.Instance.Localization;
 using brok1.Instance.Types;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 
-namespace brok1.Instance.Services
+namespace brok1.Instance.Services.BackgroundServices
 {
     internal class NotifyAboutSpinService : BackgroundService
     {
@@ -70,6 +68,7 @@ namespace brok1.Instance.Services
                             BotUser.AllUsers[i].stoppedBot = true;
                         }
                     }
+                    catch (Exception) { }
                 }
                 await Task.Delay(delay());
             }

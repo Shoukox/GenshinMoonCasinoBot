@@ -39,7 +39,7 @@ namespace brok1.Instance.Commands.BotCallbacks
 
                 _ = NotifyManager.NotifyAsync(bot, notify, Types.Enums.ENotify.Users);
                 await bot.SendMessage(user.userid, $"Начинается рассылка сообщения всем юзерам. Рассылка займет примерно {BotUser.AllUsers.Count} секунд.", replyMarkup: null);
-                
+
                 user.adminPanel.stage = EAdminPanelStage.Other;
                 user.adminMessageToSend = null;
                 user.adminIkToSend = null;

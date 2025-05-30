@@ -1,7 +1,4 @@
-﻿using Telegram.Bot.Types;
-using File = System.IO.File;
-
-namespace brok1.Instance.Types.Utils
+﻿namespace brok1.Instance.Types.Utils
 {
     public static class Settings
     {

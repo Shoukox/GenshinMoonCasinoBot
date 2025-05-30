@@ -62,7 +62,7 @@ namespace brok1.Instance.Commands.BotCommands.Handlers
         }
         public static async Task Бесплатный_код_на_Крылья(ITelegramBotClient bot, Message msg, BotUser user, ILocalization localization)
         {
-            var inputFileByFileId = new InputFileId(BotFile.AllPhotos.First(m => m.file_name=="1.png").file_id);
+            var inputFileByFileId = new InputFileId(BotFile.AllPhotos.First(m => m.file_name == "1.png").file_id);
 
             string text = "Раз ты тыкнул на эту кнопку, то уже знаешь о <b>новых крыльях</b>, которые можно получить, активировав промокоды.\n" +
                 "За <b>один период</b> нужно активировать только <b>один промокод</b>, для получения крыльев - <b><i>всего 4 промокода.</i></b>\n\n" +

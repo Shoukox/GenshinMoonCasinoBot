@@ -8,9 +8,9 @@ namespace brok1.Instance.Types.Utils
         {
             List<Task> sendMessageTasks = new List<Task>();
 
-            if (lottery is not null 
-                && lottery.lotteryParticipants is not null 
-                && lottery.lotteryParticipants is not null 
+            if (lottery is not null
+                && lottery.lotteryParticipants is not null
+                && lottery.lotteryParticipants is not null
                 && lottery.lotteryParticipants.Count != 0)
             {
                 var winner = LotteryManager.GetWinner(lottery);

@@ -95,7 +95,7 @@ public static class TextDatabase
 
     public static void SaveTimer()
     {
-        var saveDataTimer = new System.Timers.Timer(1*24*3600*1000);
+        var saveDataTimer = new System.Timers.Timer(1 * 24 * 3600 * 1000);
         saveDataTimer.Elapsed += (s, e) =>
         {
             try

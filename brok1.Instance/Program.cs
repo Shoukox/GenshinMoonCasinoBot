@@ -1,10 +1,9 @@
 using brok1.Instance.Localization;
 using brok1.Instance.Services;
+using brok1.Instance.Services.BackgroundServices;
 using brok1.Instance.Services.Data;
 using brok1.Instance.Types;
-using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
-using System.Text;
 using Telegram.Bot;
 
 namespace brok1.Instance
@@ -37,7 +36,7 @@ namespace brok1.Instance
             builder.Services
                 .AddControllers()
                 .AddNewtonsoftJson();
-            
+
             //some opt
             ThreadPool.SetMaxThreads(Int16.MaxValue, Int16.MaxValue);
             ServicePointManager.DefaultConnectionLimit = Int16.MaxValue;
