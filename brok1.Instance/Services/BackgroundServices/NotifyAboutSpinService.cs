@@ -1,5 +1,6 @@
 ﻿using brok1.Instance.Localization;
 using brok1.Instance.Types;
+using System.Security.Cryptography.Xml;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 
@@ -26,7 +27,7 @@ namespace brok1.Instance.Services.BackgroundServices
             string sendText = localization.notify_Text();
 
             DateTime date1() => DateTime.Now;
-            DateTime date2() => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1, 0, 0, 0);
+            DateTime date2() => DateTime.Today.AddDays(1);
             TimeSpan delay() => date2() - date1();
 
             await Task.Delay(delay());
