@@ -33,10 +33,10 @@ public class ConfigureWebhook : IHostedService
 
         await InitializeAllGIFsAndPhotos(botClient);
 
-        var webhookAddress = $"{_botConfig.HostAddress}/{_botConfig.Route}";
-        _logger.LogInformation("Setting webhook: {WebhookAddress}", webhookAddress);
+        //var webhookAddress = $"{_botConfig.HostAddress}/{_botConfig.Route}";
+        //_logger.LogInformation("Setting webhook: {WebhookAddress}", webhookAddress);
 
-        await botClient.SetWebhook(webhookAddress, cancellationToken: cancellationToken, dropPendingUpdates: true);
+        //await botClient.SetWebhook(webhookAddress, cancellationToken: cancellationToken, dropPendingUpdates: true);
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

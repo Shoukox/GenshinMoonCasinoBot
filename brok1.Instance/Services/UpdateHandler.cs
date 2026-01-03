@@ -59,7 +59,11 @@ public class UpdateHandler : IUpdateHandler
     private Task BotOnMessageReceivedAsync(Message message, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Receive message type: {MessageType}", message.Type);
+        
         if (message.Text is not { } messageText)
+            return Task.CompletedTask;
+
+        if (message.From.Id != message.Chat.Id)
             return Task.CompletedTask;
 
         //some logic for locals

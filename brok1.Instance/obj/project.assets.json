@@ -767,23 +767,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Shahzod\\.nuget\\packages\\": {},
+    "C:\\Users\\shach\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Shahzod\\Desktop\\repos\\GenshinMoonCasinoBot\\brok1.Instance\\brok1.Instance.csproj",
+      "projectUniqueName": "C:\\Users\\shach\\Desktop\\GenshinMoonCasinoBot\\brok1.Instance\\brok1.Instance.csproj",
       "projectName": "brok1.Instance",
-      "projectPath": "C:\\Users\\Shahzod\\Desktop\\repos\\GenshinMoonCasinoBot\\brok1.Instance\\brok1.Instance.csproj",
-      "packagesPath": "C:\\Users\\Shahzod\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Shahzod\\Desktop\\repos\\GenshinMoonCasinoBot\\brok1.Instance\\obj\\",
+      "projectPath": "C:\\Users\\shach\\Desktop\\GenshinMoonCasinoBot\\brok1.Instance\\brok1.Instance.csproj",
+      "packagesPath": "C:\\Users\\shach\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\shach\\Desktop\\GenshinMoonCasinoBot\\brok1.Instance\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Shahzod\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\shach\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -811,7 +811,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -845,6 +845,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.22, 8.0.22]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.22, 8.0.22]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.22, 8.0.22]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.22, 8.0.22]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -853,7 +871,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -13,6 +13,7 @@ public class PollingBackgroundService(
     UpdateQueueService updateQueueService,
     IOptions<BotConfiguration> botConfig) : BackgroundService
 {
+    private int? _offset = null;
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await botClient.DeleteWebhook();
@@ -22,6 +23,17 @@ public class PollingBackgroundService(
         await InitializeAllGIFsAndPhotos(botClient);
 
         logger.LogInformation("Starting polling background service");
+        try
+        {
+            // Skip pending updates
+            var pendingUpdates = await botClient.GetUpdates(timeout: 1);
+            if (pendingUpdates.Length != 0) _offset = pendingUpdates.Last().Id + 1;
+        }
+        catch (OperationCanceledException e)
+        {
+            logger.LogError(e, "Operation cancelled");
+            return;
+        }
         await EnqueueAllUpdates(stoppingToken);
     }
 
@@ -61,15 +73,14 @@ public class PollingBackgroundService(
 
     private async Task EnqueueAllUpdates(CancellationToken stoppingToken)
     {
-        int? offset = null;
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                var updates = await botClient.GetUpdates(offset, timeout: 30, cancellationToken: stoppingToken);
+                var updates = await botClient.GetUpdates(_offset, timeout: 30, cancellationToken: stoppingToken);
                 foreach (var update in updates)
                 {
-                    offset = update.Id + 1;
+                    _offset = update.Id + 1;
                     await updateQueueService.EnqueueUpdateAsync(update, stoppingToken);
                 }
             }
