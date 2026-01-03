@@ -79,7 +79,7 @@ public class UpdateHandlerBackgroundService(
 
             try
             {
-                await updateHandler.HandleUpdateAsync(bot, update, stoppingToken);
+                await updateHandler.HandleUpdateAsync(bot, update, CancellationToken.None);
             }
             catch (OperationCanceledException)
             {
@@ -88,7 +88,7 @@ public class UpdateHandlerBackgroundService(
             }
             catch (Exception ex)
             {
-                await updateHandler.HandleErrorAsync(bot, ex, HandleErrorSource.HandleUpdateError, stoppingToken);
+                await updateHandler.HandleErrorAsync(bot, ex, HandleErrorSource.HandleUpdateError, CancellationToken.None);
             }
         }
     }

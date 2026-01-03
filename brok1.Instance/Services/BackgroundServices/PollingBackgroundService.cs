@@ -81,7 +81,7 @@ public class PollingBackgroundService(
                 foreach (var update in updates)
                 {
                     _offset = update.Id + 1;
-                    await updateQueueService.EnqueueUpdateAsync(update, stoppingToken);
+                    await updateQueueService.EnqueueUpdateAsync(update, CancellationToken.None);
                 }
             }
             catch (OperationCanceledException)
