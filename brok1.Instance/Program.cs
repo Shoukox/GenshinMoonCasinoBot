@@ -3,7 +3,6 @@ using brok1.Instance.Services;
 using brok1.Instance.Services.BackgroundServices;
 using brok1.Instance.Services.Data;
 using brok1.Instance.Types;
-using System.Net;
 using Telegram.Bot;
 
 namespace brok1.Instance
@@ -33,16 +32,12 @@ namespace brok1.Instance
             builder.Services.AddHostedService<UpdateHandlerBackgroundService>();
             builder.Services.AddHostedService<NotifyAboutSpinService>();
 
-            builder.Services
-                .AddControllers()
-                .AddNewtonsoftJson();
-
-            //some opt
-            ThreadPool.SetMaxThreads(Int16.MaxValue, Int16.MaxValue);
-            ServicePointManager.DefaultConnectionLimit = Int16.MaxValue;
+            //builder.Services
+            //    .AddControllers()
+            //    .AddNewtonsoftJson();
 
             var app = builder.Build();
-            app.MapControllers();
+            //app.MapControllers();
             await app.RunAsync();
         }
     }
